@@ -195,7 +195,14 @@ static Janet cfun_GetWindowHandle(int32_t argc, Janet *argv) {
 static Janet cfun_GetWindowPosition(int32_t argc, Janet *argv) {
   (void) argv;
   janet_fixarity(argc, 0);
-  Vector2 position = GetWindowPosition();
+  // Provide default value so that it won't crash Janet if no window.
+  Vector2 position = {
+    .x = 0,
+    .y = 0
+  };
+  if(GetWindowHandle()) {
+    position = GetWindowPosition();
+  }
   return jaylib_wrap_vec2(position);
 }
 
