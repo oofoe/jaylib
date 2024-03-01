@@ -192,6 +192,13 @@ static Janet cfun_GetWindowHandle(int32_t argc, Janet *argv) {
     return janet_wrap_pointer(GetWindowHandle());
 }
 
+static Janet cfun_GetWindowPosition(int32_t argc, Janet *argv) {
+  (void) argv;
+  janet_fixarity(argc, 0);
+  Vector2 position = GetWindowPosition();
+  return jaylib_wrap_vec2(position);
+}
+
 static Janet cfun_GetScreenWidth(int32_t argc, Janet *argv) {
     (void) argv;
     janet_fixarity(argc, 0);
@@ -987,6 +994,10 @@ static JanetReg core_cfuns[] = {
     {"get-window-handle", cfun_GetWindowHandle, 
         "(get-window-handle)\n\n" 
         "Get native window handle"
+    },
+    {"get-window-position", cfun_GetWindowPosition, 
+        "(get-window-position)\n\n" 
+        "Get window position."
     },
     {"get-screen-width", cfun_GetScreenWidth, 
         "(get-screen-width)\n\n" 
